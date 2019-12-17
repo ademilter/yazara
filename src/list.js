@@ -20,31 +20,39 @@ function List({ selectedDate }) {
     }
   })
 
-  console.log(error)
-
-  // useEffect((){
-  //
-  // }, [selectedDate])
-
-  return data ? (
-    <View>
-      <FlatList
-        data={data.logs}
-        renderItem={({ item }) => <Text>{item.text}</Text>}
-        keyExtractor={item => item.id}
-      />
-    </View>
-  ) : error ? (
-    <View>
-      <Text>Ups errr</Text>
-    </View>
-  ) : loading ? (
-    <View>
-      <Text>Loading</Text>
-    </View>
-  ) : (
-    <View>
-      <Text>Ups</Text>
+  return (
+    <View style={{ flex: 1, padding: 30, backgroundColor: '#222' }}>
+      {data ? (
+        <View>
+          {data.logs.length ? (
+            <FlatList
+              data={data.logs}
+              renderItem={({ item }) => (
+                <View style={{ paddingVertical: 10 }}>
+                  <Text style={{ color: 'white' }}>{item.text}</Text>
+                </View>
+              )}
+              keyExtractor={item => item.id}
+            />
+          ) : (
+            <Text style={{ color: 'white' }}>Boş</Text>
+          )}
+        </View>
+      ) : error ? (
+        <View>
+          {error.graphQLErrors.map(({ message }, i) => (
+            <Text key={i} style={{ color: 'white' }}>
+              {message}
+            </Text>
+          ))}
+        </View>
+      ) : (
+        loading && (
+          <View>
+            <Text style={{ color: 'white' }}>Loading</Text>
+          </View>
+        )
+      )}
     </View>
   )
 }

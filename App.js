@@ -22,11 +22,12 @@ function App() {
   }
 
   useEffect(() => {
+    console.log('------------------ init -------------------')
     init()
   }, [])
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#000' }}>
       {client ? (
         <ApolloProvider client={client}>
           <Home />

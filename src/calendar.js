@@ -1,40 +1,84 @@
 import React from 'react'
-import { Calendar } from 'react-native-calendars'
+import { CalendarList } from 'react-native-calendars'
 
 function Index({ selectedDate, changeDate }) {
   return (
-    <Calendar
-      disableMonthChange={true}
+    <CalendarList
+      horizontal={true}
+      pagingEnabled={true}
+      monthFormat={'MMMM yyyy'}
+      onDayPress={changeDate}
       firstDay={1}
-      monthFormat={'yyyy MMMM'}
-      current={selectedDate}
-      markingType={'custom'}
+      hideExtraDays={false}
       markedDates={{
-        '2019-12-15': {
-          customStyles: {
-            container: {
-              backgroundColor: 'white',
-              elevation: 4
-            },
-            text: {
-              fontWeight: 'bold'
-            }
-          }
-        }
+        '2019-12-16': { marked: true },
+        '2019-12-17': { marked: true },
+        '2019-12-18': { marked: true },
+        '2019-12-19': { marked: true }
+      }}
+      // markingType={'custom'}
+      // markedDates={{
+      //   [selectedDate]: {
+      //     customStyles: {
+      //       container: {
+      //        backgroundColor: '#444',}
+      //         borderRadius: 16
+      //       },
+      //       text: {
+      //         color: 'white'
+      //       }
+      //     }
+      //   }
+      // }}
+      style={{
+        paddingBottom: 10
       }}
       theme={{
-        'stylesheet.day.single': {
-          today: {
-            backgroundColor: '#ade',
-            borderRadius: 30
-          },
-          todayText: {
-            color: 'black',
-            fontWeight: 'bold'
-          }
+        calendarBackground: '#000',
+        // month
+        textMonthFontSize: 20,
+        monthTextColor: '#ccc',
+        // day name
+        textSectionTitleColor: '#888',
+        // dot
+        dotColor: '#fff',
+        // day
+        dayTextColor: '#fff',
+        textDayFontWeight: 'normal',
+        // day selected markedDates
+        // selectedDayBackgroundColor: '#ddd',
+        // selectedDayTextColor: '#000',
+        // selectedDotColor: 'red',
+        // day today
+        todayBackgroundColor: 'red',
+        todayTextColor: '#fff',
+        textDisabledColor: '#444',
+        'stylesheet.day.basic': {
+          // dot: {
+          //   position: 'absolute',
+          //   left: 0,
+          //   top: 0,
+          //   width: 32,
+          //   height: 32,
+          //   borderWidth: 2,
+          //   borderColor: '#444',
+          //   borderRadius: 16
+          // },
+          // visibleDot: {
+          //   opacity: 1,
+          //   backgroundColor: 'transparent'
+          // },
+          // selectedDot: {
+          //   backgroundColor: 'transparent'
+          // },
+          // disabledDot: {
+          //   backgroundColor: 'transparent'
+          // },
+          // todayDot: {
+          //   backgroundColor: 'transparent'
+          // }
         }
       }}
-      onDayPress={changeDate}
     />
   )
 }
