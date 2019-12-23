@@ -23,7 +23,7 @@ function List({ selectedDate }) {
   return (
     <View style={{ flex: 1, padding: 30, backgroundColor: '#222' }}>
       {data ? (
-        <View>
+        <View style={{ flex: 1 }}>
           {data.logs.length ? (
             <FlatList
               data={data.logs}

@@ -1,19 +1,19 @@
 import { HttpLink } from 'apollo-link-http'
 import { ApolloClient } from 'apollo-client'
-import { InMemoryCache } from 'apollo-cache-inmemory'
+// import { InMemoryCache } from 'apollo-cache-inmemory'
 
-const makeApolloClient = token => {
+const makeApolloClient = (url, token) => {
   const link = new HttpLink({
-    uri: `https://yazara.herokuapp.com/v1/graphql`,
+    url,
     headers: {
-      'x-hasura-admin-secret': token
+      authorization: `Bearer ${token}`
     }
   })
 
-  const cache = new InMemoryCache()
+  // const cache = new InMemoryCache()
   return new ApolloClient({
-    link,
-    cache
+    link
+    // cache
   })
 }
 

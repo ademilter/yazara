@@ -1,44 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import { SafeAreaView, View, ActivityIndicator } from 'react-native'
-import { ApolloProvider } from 'react-apollo'
-import AsyncStorage from '@react-native-community/async-storage'
-import makeApolloClient from './src/utils/apollo'
-import Home from './src/home'
+import React from 'react'
+import { SafeAreaView, StatusBar } from 'react-native'
+import { Provider } from 'mobx-react'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+
+import store from './src/store'
+
+import InitScreen from './src/views/init'
+import AuthStack from './src/views/auth'
+import AppStack from './src/views/app'
+
+const AppNavigator = createAppContainer(
+  createSwitchNavigator(
+    {
+      Init: InitScreen,
+      Auth: AuthStack,
+      App: AppStack
+    },
+    {
+      initialRouteName: 'Init',
+      defaultNavigationOptions: {
+        header: null
+      }
+    }
+  )
+)
 
 function App() {
-  const [client, setClient] = useState()
-
-  const init = async () => {
-    try {
-      let data = {}
-      const rawData = await AsyncStorage.getItem('@store')
-      if (rawData) data = JSON.parse(rawData)
-      console.log(data)
-      const client = makeApolloClient('145323')
-      setClient(client)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => {
-    console.log('------------------ init -------------------')
-    init()
-  }, [])
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#000' }}>
-      {client ? (
-        <ApolloProvider client={client}>
-          <Home />
-        </ApolloProvider>
-      ) : (
-        <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-        >
-          <ActivityIndicator size="large" color="red" />
-        </View>
-      )}
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
+      <Provider store={store}>
+        <AppNavigator theme={store.theme} />
+      </Provider>
     </SafeAreaView>
   )
 }
