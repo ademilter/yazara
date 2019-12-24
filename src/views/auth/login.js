@@ -1,21 +1,15 @@
 import React from 'react'
-import { View, Text, Button } from 'react-native'
+import Box from '../../components/box'
+import Button from '../../components/button'
+import Text from '../../components/text'
 
 function Index({ navigation }) {
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#000'
-      }}
-    >
-      <Button
-        title="Register"
-        onPress={() => navigation.navigate('Register')}
-      />
-    </View>
+    <Box flex={1} alignItems="center" justifyContent="center">
+      <Button onPress={() => navigation.navigate('Register')}>
+        <Text>Register</Text>
+      </Button>
+    </Box>
   )
 }
 
