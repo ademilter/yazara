@@ -19,7 +19,7 @@ const AppStack = createStackNavigator(
 
 function Index({ store }) {
   return (
-    <ApolloProvider client={store.client}>
+    <ApolloProvider client={store.serviceData}>
       <AppStack />
     </ApolloProvider>
   )
