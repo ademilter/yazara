@@ -7,8 +7,7 @@ const Text = styled(T)(compose(space, color, typography))
 
 Text.defaultProps = {
   color: 'white',
-  fontSize: 'normal',
-  mt: 3
+  fontSize: 'normal'
 }
 
 export default Text
