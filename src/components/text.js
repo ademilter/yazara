@@ -6,7 +6,7 @@ import { compose, space, color, typography } from 'styled-system'
 const Text = styled(T)(compose(space, color, typography))
 
 Text.defaultProps = {
-  color: 'white',
+  color: 'white6',
   fontSize: 'normal'
 }
 

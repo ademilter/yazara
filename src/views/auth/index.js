@@ -1,23 +1,25 @@
 import React from 'react'
 import { createStackNavigator } from 'react-navigation-stack'
+import { colors } from '../../utils/theme'
 
-import RegisterScreen from './register'
-import LoginScreen from './login'
+import SignUpScreen from './signUp'
+import SignInScreen from './signIn'
 
 export default createStackNavigator(
   {
-    Register: RegisterScreen,
-    Login: LoginScreen
+    SignIn: SignInScreen,
+    SignUp: SignUpScreen
   },
   {
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: '#000',
-        borderBottomColor: '#555'
+        backgroundColor: colors.dark6,
+        borderBottomColor: colors.dark3
       },
-      headerTintColor: '#fff',
+      headerTintColor: colors.blue,
       headerTitleStyle: {
         // fontWeight: 'bold'
+        color: 'white'
       }
     }
   }

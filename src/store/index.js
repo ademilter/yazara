@@ -9,14 +9,13 @@ const STORE_KEY = '@YAZARA'
 
 class Store {
   @observable theme = 'dark'
+  @observable user = null
 
   constructor() {
     this.urlAuth = 'https://yazara-auth.herokuapp.com/'
     this.urlData = 'https://yazara.herokuapp.com/v1/graphql'
-    this.token = null
     this.serviceData = null
     this.serviceAuth = null
-
     this.createServiceAuth()
   }
 
@@ -24,7 +23,7 @@ class Store {
     try {
       const data = await AsyncStorage.getItem(STORE_KEY)
       if (!data) return
-      this.token = data.token
+      this.user = data.user
       this.createServiceData()
     } catch (e) {
       console.log(e)
@@ -38,14 +37,25 @@ class Store {
   }
 
   createServiceData() {
-    this.serviceData = makeApolloClient(this.urlData, this.token)
+    this.serviceData = makeApolloClient(this.urlData, this.user.token)
   }
 
-  async register(payload) {
+  async signUp(payload) {
     try {
-      const response = await this.serviceAuth.post('/auth/register', payload)
-      console.log('register', response.data)
-      return response
+      const { data } = await this.serviceAuth.post('/signup', payload)
+      this.user = data
+      this.createServiceData()
+    } catch (e) {
+      if (e.response) throw e.response.data
+      throw e
+    }
+  }
+
+  async logIn(payload) {
+    try {
+      const { data } = await this.serviceAuth.post('/login', payload)
+      this.user = data
+      this.createServiceData()
     } catch (e) {
       if (e.response) throw e.response.data
       throw e

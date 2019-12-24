@@ -1,18 +1,15 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
 import styled from 'styled-components'
-import { compose, space, layout, color, flexbox, border } from 'styled-system'
+import Link from './link'
 
-const Button = styled(TouchableOpacity)(
-  compose(space, color, flexbox, layout, border)
-)
+const Button = styled(Link)({})
 
 Button.defaultProps = {
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
   borderRadius: 1,
-  bg: 'white30',
+  bg: 'blue',
   px: 24,
   height: 'finger'
 }

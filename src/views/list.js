@@ -29,19 +29,19 @@ function List({ selectedDate }) {
               data={data.logs}
               renderItem={({ item }) => (
                 <View style={{ paddingVertical: 10 }}>
-                  <Text style={{ color: 'white' }}>{item.text}</Text>
+                  <Text style={{ color: 'white6' }}>{item.text}</Text>
                 </View>
               )}
               keyExtractor={item => item.id}
             />
           ) : (
-            <Text style={{ color: 'white' }}>Boş</Text>
+            <Text style={{ color: 'white6' }}>Boş</Text>
           )}
         </View>
       ) : error ? (
         <View>
           {error.graphQLErrors.map(({ message }, i) => (
-            <Text key={i} style={{ color: 'white' }}>
+            <Text key={i} style={{ color: 'white6' }}>
               {message}
             </Text>
           ))}
@@ -49,7 +49,7 @@ function List({ selectedDate }) {
       ) : (
         loading && (
           <View>
-            <Text style={{ color: 'white' }}>Loading</Text>
+            <Text style={{ color: 'white6' }}>Loading</Text>
           </View>
         )
       )}

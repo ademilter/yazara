@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react'
 import { inject, observer } from 'mobx-react'
-import { View, ActivityIndicator } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { sleep } from '../utils/sleep'
+import View from '../components/view'
 
 function Index({ navigation, store }) {
   useEffect(() => {
     ;(async () => {
       await sleep()
       await store.getData()
-      navigation.navigate(store.token ? 'Home' : 'Register')
+      navigation.navigate(store.token ? 'Home' : 'SignIn')
     })()
   }, [])
 
   return (
-    <View flex={1} alignItems="center" justifyContent="center">
+    <View flex={1} alignItems="center" justifyContent="center" bg="dark6">
       <ActivityIndicator color="white" />
     </View>
   )
