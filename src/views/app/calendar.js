@@ -1,5 +1,13 @@
 import React from 'react'
 import { CalendarList } from 'react-native-calendars'
+import { colors } from '../../utils/theme'
+import { LocaleConfig } from 'react-native-calendars'
+
+LocaleConfig.locales['custom'] = {
+  ...LocaleConfig.locales[''],
+  dayNamesShort: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+}
+LocaleConfig.defaultLocale = 'custom'
 
 function Index({ selectedDate, changeDate }) {
   return (
@@ -7,6 +15,7 @@ function Index({ selectedDate, changeDate }) {
       horizontal={true}
       pagingEnabled={true}
       monthFormat={'MMMM yyyy'}
+      current={selectedDate}
       onDayPress={changeDate}
       firstDay={1}
       hideExtraDays={false}
@@ -16,68 +25,31 @@ function Index({ selectedDate, changeDate }) {
         '2019-12-18': { marked: true },
         '2019-12-19': { marked: true }
       }}
-      // markingType={'custom'}
-      // markedDates={{
-      //   [selectedDate]: {
-      //     customStyles: {
-      //       container: {
-      //        backgroundColor: '#444',}
-      //         borderRadius: 16
-      //       },
-      //       text: {
-      //         color: 'white'
-      //       }
-      //     }
-      //   }
-      // }}
-      style={{
-        paddingBottom: 10
-      }}
+      calendarHeight={314}
+      style={{ paddingVertical: 8 }}
       theme={{
-        calendarBackground: '#000',
-        // month
-        textMonthFontSize: 20,
-        monthTextColor: '#ccc',
-        // day name
-        textSectionTitleColor: '#888',
-        // dot
-        dotColor: '#fff',
-        // day
-        dayTextColor: '#fff',
+        'stylesheet.calendar.header': {
+          header: {
+            display: 'none'
+          }
+        },
+        calendarBackground: colors.dark6,
+        //-- day-title
+        textSectionTitleColor: colors.white,
+        //-- dot
+        dotColor: colors.teal,
+        //-- day
+        dayTextColor: colors.white6,
         textDayFontWeight: 'normal',
-        // day selected markedDates
-        // selectedDayBackgroundColor: '#ddd',
+        //-- day selected markedDates
+        selectedDayBackgroundColor: colors.teal,
+        selectedDotColor: colors.dark6,
         // selectedDayTextColor: '#000',
-        // selectedDotColor: 'red',
-        // day today
-        todayBackgroundColor: 'red',
-        todayTextColor: '#fff',
-        textDisabledColor: '#444',
-        'stylesheet.day.basic': {
-          // dot: {
-          //   position: 'absolute',
-          //   left: 0,
-          //   top: 0,
-          //   width: 32,
-          //   height: 32,
-          //   borderWidth: 2,
-          //   borderColor: '#444',
-          //   borderRadius: 16
-          // },
-          // visibleDot: {
-          //   opacity: 1,
-          //   backgroundColor: 'transparent'
-          // },
-          // selectedDot: {
-          //   backgroundColor: 'transparent'
-          // },
-          // disabledDot: {
-          //   backgroundColor: 'transparent'
-          // },
-          // todayDot: {
-          //   backgroundColor: 'transparent'
-          // }
-        }
+        //-- day today
+        todayBackgroundColor: colors.red,
+        todayTextColor: colors.white6,
+        //-- other day
+        textDisabledColor: colors.dark5
       }}
     />
   )

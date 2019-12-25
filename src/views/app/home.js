@@ -1,45 +1,41 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import format from 'date-fns/format'
-// import addWeeks from 'date-fns/addWeeks'
+import { inject, observer } from 'mobx-react'
 
-// import Agenda from './agenda'
-// import Calendar from './calendar'
-// import List from './list'
-import Text from '../../components/text'
+import Calendar from './calendar'
+import List from './list'
+
 import View from '../../components/view'
+import Page from '../../components/page'
+import { colors } from '../../utils/theme'
 
 function Index() {
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), 'yyyy-MM-dd')
   )
-  // const [rangeDate, setRangeDate] = useState([])
 
-  // useEffect(() => {
-  //   const range = [
-  //     format(addWeeks(new Date(selectedDate), -2), 'yyyy-MM-dd'),
-  //     format(addWeeks(new Date(selectedDate), 2), 'yyyy-MM-dd')
-  //   ]
-  //   setRangeDate(range)
-  //   // console.log(range)
-  // }, [selectedDate])
-
-  // const changeDate = date => {
-  //   console.log('change date', date)
-  //   setSelectedDate(date.dateString)
-  // }
+  const changeDate = date => {
+    console.log('change date', date)
+    setSelectedDate(date.dateString)
+  }
 
   return (
-    <View flex={1} alignItems="center" p={24}>
-      <Text>Hello</Text>
-      {/*<Agenda*/}
-      {/*  selectedDate={selectedDate}*/}
-      {/*  rangeDate={rangeDate}*/}
-      {/*  changeDate={changeDate}*/}
-      {/*/>*/}
-      {/*<Calendar selectedDate={selectedDate} changeDate={changeDate} />*/}
-      {/*<List selectedDate={selectedDate} />*/}
-    </View>
+    <Page>
+      <Calendar selectedDate={selectedDate} changeDate={changeDate} />
+      <View flex={1} p={24} borderTopWidth={1} borderTopColor="dark4">
+        <List selectedDate={selectedDate} />
+      </View>
+    </Page>
   )
 }
 
-export default Index
+Index.navigationOptions = () => ({
+  // TODO: "yyyy MM" formatında tarih gelecek
+  title: 'Kasım',
+  headerStyle: {
+    backgroundColor: colors.dark6,
+    borderBottomColor: colors.dark6
+  }
+})
+
+export default inject('store')(observer(Index))
