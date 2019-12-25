@@ -2,12 +2,12 @@ import React from 'react'
 import { createStackNavigator } from 'react-navigation-stack'
 import { colors } from '../../utils/theme'
 
-import SignUpScreen from './signUp'
-import SignInScreen from './signIn'
+import SignUpScreen from './signup'
+import LoginScreen from './login'
 
 export default createStackNavigator(
   {
-    SignIn: SignInScreen,
+    Login: LoginScreen,
     SignUp: SignUpScreen
   },
   {

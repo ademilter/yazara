@@ -13,4 +13,8 @@ import {
 
 const View = styled(V)(compose(space, color, layout, flexbox, border, position))
 
+View.defaultProps = {
+  bg: 'dark6'
+}
+
 export default View

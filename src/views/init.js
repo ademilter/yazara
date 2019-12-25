@@ -9,12 +9,12 @@ function Index({ navigation, store }) {
     ;(async () => {
       await sleep()
       await store.getData()
-      navigation.navigate(store.token ? 'Home' : 'SignIn')
+      navigation.navigate(store.user ? 'App' : 'Login')
     })()
   }, [])
 
   return (
-    <View flex={1} alignItems="center" justifyContent="center" bg="dark6">
+    <View flex={1} alignItems="center" justifyContent="center">
       <ActivityIndicator color="white" />
     </View>
   )

@@ -1,6 +1,6 @@
 import { HttpLink } from 'apollo-link-http'
 import { ApolloClient } from 'apollo-client'
-// import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const makeApolloClient = (url, token) => {
   const link = new HttpLink({
@@ -10,10 +10,10 @@ const makeApolloClient = (url, token) => {
     }
   })
 
-  // const cache = new InMemoryCache()
+  const cache = new InMemoryCache()
   return new ApolloClient({
-    link
-    // cache
+    link,
+    cache
   })
 }
 

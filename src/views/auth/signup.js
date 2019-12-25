@@ -1,12 +1,12 @@
 import React from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import { inject, observer } from 'mobx-react'
 
 import View from '../../components/view'
 import Button from '../../components/button'
 import Text from '../../components/text'
 import Input from '../../components/input'
-import Link from '../../components/link'
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -23,13 +23,14 @@ function Index({ navigation, store }) {
     <Formik
       initialValues={{
         email: 'ademilter@gmail.com',
-        password: '123456'
+        password: '123123'
       }}
       validationSchema={LoginSchema}
       onSubmit={async (values, { setSubmitting }) => {
+        values.confirmPassword = values.password
         try {
           await store.signUp(values)
-          navigation.navigate('Terminal')
+          navigation.navigate('App')
         } catch (e) {
           console.log(e)
         } finally {
@@ -38,8 +39,8 @@ function Index({ navigation, store }) {
       }}
     >
       {({ handleChange, handleSubmit, values, isSubmitting }) => (
-        <View flex={1} alignItems="center" p={24} bg="dark6">
-          <View width={1} mb={24}>
+        <View flex={1} alignItems="center" p={32} >
+          <View width={1} mb={16}>
             <Input
               autoFocus={true}
               defaultValue={values.email}
@@ -63,13 +64,10 @@ function Index({ navigation, store }) {
               <Text>Loading...</Text>
             ) : (
               <Button onPress={handleSubmit}>
-                <Text>Sign in</Text>
+                <Text>Sign up</Text>
               </Button>
             )}
           </View>
-          <Link px={24} onPress={() => navigation.navigate('SignUp')}>
-            <Text color="blue">Create an account</Text>
-          </Link>
         </View>
       )}
     </Formik>
@@ -77,12 +75,7 @@ function Index({ navigation, store }) {
 }
 
 Index.navigationOptions = () => ({
-  title: 'Sign in'
-  // headerRight: () => (
-  //   <Link px={24} onPress={() => navigation.navigate('SignUp')}>
-  //     <Text color="blue">Sign up</Text>
-  //   </Link>
-  // )
+  title: 'Sign up'
 })
 
-export default Index
+export default inject('store')(observer(Index))
