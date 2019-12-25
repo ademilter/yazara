@@ -7,7 +7,7 @@ export default {
   },
   headerTintColor: colors.blue,
   headerTitleStyle: {
-    // fontWeight: 'bold'
+    fontWeight: 'bold',
     color: 'white'
   }
 }

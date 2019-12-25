@@ -3,7 +3,7 @@ import { ApolloProvider } from 'react-apollo'
 import { inject, observer } from 'mobx-react'
 import { createStackNavigator } from 'react-navigation-stack'
 
-import navigationOptions from '../../utils/navigationOptions'
+import defaultNavigationOptions from '../../utils/navigationOptions'
 import HomeScreen from './home'
 
 const AppStack = createStackNavigator(
@@ -11,7 +11,7 @@ const AppStack = createStackNavigator(
     Home: HomeScreen
   },
   {
-    navigationOptions
+    defaultNavigationOptions
   }
 )
 
