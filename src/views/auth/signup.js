@@ -7,6 +7,7 @@ import View from '../../components/view'
 import Button from '../../components/button'
 import Text from '../../components/text'
 import Input from '../../components/input'
+import Page from '../../components/page'
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -39,7 +40,7 @@ function Index({ navigation, store }) {
       }}
     >
       {({ handleChange, handleSubmit, values, isSubmitting }) => (
-        <View flex={1} alignItems="center" p={32} >
+        <Page p={24}>
           <View width={1} mb={16}>
             <Input
               autoFocus={true}
@@ -68,7 +69,7 @@ function Index({ navigation, store }) {
               </Button>
             )}
           </View>
-        </View>
+        </Page>
       )}
     </Formik>
   )
