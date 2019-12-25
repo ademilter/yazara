@@ -2,9 +2,9 @@ import { HttpLink } from 'apollo-link-http'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-const makeApolloClient = (url, token) => {
+const makeApolloClient = (uri, token) => {
   const link = new HttpLink({
-    url,
+    uri,
     headers: {
       authorization: `Bearer ${token}`
     }
