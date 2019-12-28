@@ -1,72 +1,73 @@
-import React, { useState } from 'react'
-import format from 'date-fns/format'
+import React, { useState, useEffect } from 'react'
 import { inject, observer } from 'mobx-react'
-import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
 import startOfMonth from 'date-fns/startOfMonth'
 import endOfMonth from 'date-fns/endOfMonth'
+import format from 'date-fns/format'
 
 import Calendar from './calendar'
 import List from './list'
 
 import View from '../../components/view'
 import Page from '../../components/page'
-import { colors } from '../../utils/theme'
+import Text from '../../components/text'
+import Link from '../../components/link'
+import Icon from '../../components/icon'
 
-function Index() {
-  const today = new Date()
+function Index({ navigation }) {
+  const today = format(new Date(), 'yyyy-MM-dd')
+  const [selectedDate, setSelectedDate] = useState(today)
+  const [selectedMont, setSelectedMont] = useState({
+    startDate: format(startOfMonth(new Date()), 'yyyy-MM-dd'),
+    endDate: format(endOfMonth(new Date()), 'yyyy-MM-dd')
+  })
 
-  const [selectedDate, setSelectedDate] = useState(format(today, 'yyyy-MM-dd'))
+  useEffect(() => {
+    navigation.setParams({ selectedDate: selectedMont.startDate })
+  }, [selectedMont])
 
   const onChangeDate = date => {
     setSelectedDate(date.dateString)
   }
 
-  const [selectedMont, setSelectedMont] = useState({
-    startDate: format(startOfMonth(today), 'yyyy-MM-dd'),
-    endDate: format(endOfMonth(today), 'yyyy-MM-dd')
-  })
-
   const onMonthChange = dates => {
-    console.log(dates)
     if (dates.length > 1) return
     const date = dates[0].dateString
     const startDate = format(startOfMonth(new Date(date)), 'yyyy-MM-dd')
     const endDate = format(endOfMonth(new Date(date)), 'yyyy-MM-dd')
-    setSelectedDate(startDate)
     setSelectedMont({ startDate, endDate })
   }
 
-  const FETCH_LOGS = gql`
-    query logs($startDate: date!, $endDate: date!) {
-      logs(where: { created_at: { _gte: $startDate, _lte: $endDate } }) {
-        id
-        text
-        created_at
+  const { data, error, loading } = useQuery(
+    gql`
+      query logs($startDate: date!, $endDate: date!) {
+        logs(where: { created_at: { _gte: $startDate, _lte: $endDate } }) {
+          id
+          text
+          created_at
+        }
+      }
+    `,
+    {
+      variables: {
+        startDate: selectedMont.startDate,
+        endDate: selectedMont.endDate
       }
     }
-  `
-
-  const { data, error, loading } = useQuery(FETCH_LOGS, {
-    variables: {
-      startDate: selectedMont.startDate,
-      endDate: selectedMont.endDate
-    },
-    onCompleted: data => {
-      console.log('onCompleted', data)
-    }
-  })
+  )
 
   return (
     <Page>
       <Calendar
+        today={today}
         data={data}
         loading={loading}
         selectedDate={selectedDate}
         onChangeDate={onChangeDate}
         onMonthChange={onMonthChange}
       />
-      <View flex={1} p={24} borderTopWidth={1} borderTopColor="dark4">
+      <View flex={1} p={24} borderTopWidth={1} borderTopColor="dark5">
         <List
           selectedDate={selectedDate}
           data={data}
@@ -78,13 +79,24 @@ function Index() {
   )
 }
 
-Index.navigationOptions = () => ({
-  // TODO: "yyyy MM" formatında tarih gelecek
-  title: 'Kasım',
-  headerStyle: {
-    backgroundColor: colors.dark6,
-    borderBottomColor: colors.dark6
+Index.navigationOptions = ({ navigation }) => {
+  return {
+    headerLeft: () => (
+      <Link px={24} py={4} onPress={() => {}}>
+        <Icon name="search" />
+      </Link>
+    ),
+    headerTitle: () => {
+      const selectedDate = navigation.getParam('selectedDate', null)
+      const title = format(new Date(selectedDate), 'MMMM yyyy')
+      return <Text>{title}</Text>
+    },
+    headerRight: () => (
+      <Link px={24} py={4} onPress={() => {}}>
+        <Icon name="add" />
+      </Link>
+    )
   }
-})
+}
 
 export default inject('store')(observer(Index))

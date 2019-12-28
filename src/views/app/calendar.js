@@ -3,21 +3,32 @@ import { CalendarList } from 'react-native-calendars'
 import { colors } from '../../utils/theme'
 import { LocaleConfig } from 'react-native-calendars'
 
-function Index({ data, loading, selectedDate, onChangeDate, onMonthChange }) {
+function Index({
+  today,
+  data,
+  loading,
+  selectedDate,
+  onChangeDate,
+  onMonthChange
+}) {
+  const obj =
+    today === selectedDate ? {} : { [selectedDate]: { selected: true } }
   const markedDates = loading
     ? {}
     : data.logs.reduce((acc, curr) => {
-        acc[curr.created_at] = { marked: true }
+        let options = { marked: true }
+        const isSelected = curr.created_at === selectedDate
+        if (isSelected) {
+          options.selected = true
+        }
+        acc[curr.created_at] = options
         return acc
-      }, {})
-
-  console.log(markedDates)
+      }, obj)
 
   return (
     <CalendarList
       horizontal
       pagingEnabled
-      monthFormat={'MMMM yyyy'}
       current={selectedDate}
       onDayPress={onChangeDate}
       onVisibleMonthsChange={onMonthChange}
@@ -46,8 +57,8 @@ const theme = {
   dayTextColor: colors.white6,
   textDayFontWeight: 'normal',
   //-- day selected markedDates (selected: true)
-  // selectedDayBackgroundColor: colors.indigo,
-  // selectedDotColor: colors.dark6,
+  selectedDayBackgroundColor: colors.white,
+  selectedDotColor: colors.dark6,
   //-- day today
   todayBackgroundColor: colors.indigo,
   todayTextColor: colors.white6,
