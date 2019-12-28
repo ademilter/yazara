@@ -6,7 +6,7 @@ import startOfMonth from 'date-fns/startOfMonth'
 import endOfMonth from 'date-fns/endOfMonth'
 import format from 'date-fns/format'
 
-import Calendar from './calendar'
+import Calendar from './calendar-expandable'
 import List from './list'
 
 import View from '../../components/view'
@@ -18,25 +18,22 @@ import Icon from '../../components/icon'
 function Index({ navigation }) {
   const today = format(new Date(), 'yyyy-MM-dd')
   const [selectedDate, setSelectedDate] = useState(today)
-  const [selectedMont, setSelectedMont] = useState({
-    startDate: format(startOfMonth(new Date()), 'yyyy-MM-dd'),
-    endDate: format(endOfMonth(new Date()), 'yyyy-MM-dd')
-  })
+  const [selectedMont, setSelectedMont] = useState([
+    format(startOfMonth(new Date()), 'yyyy-MM-dd'),
+    format(endOfMonth(new Date()), 'yyyy-MM-dd')
+  ])
 
   useEffect(() => {
-    navigation.setParams({ selectedDate: selectedMont.startDate })
-  }, [selectedMont])
+    setSelectedMont([
+      format(startOfMonth(new Date(selectedDate)), 'yyyy-MM-dd'),
+      format(endOfMonth(new Date(selectedDate)), 'yyyy-MM-dd')
+    ])
+    navigation.setParams({ selectedDate })
+  }, [selectedDate])
 
   const onChangeDate = date => {
-    setSelectedDate(date.dateString)
-  }
-
-  const onMonthChange = dates => {
-    if (dates.length > 1) return
-    const date = dates[0].dateString
-    const startDate = format(startOfMonth(new Date(date)), 'yyyy-MM-dd')
-    const endDate = format(endOfMonth(new Date(date)), 'yyyy-MM-dd')
-    setSelectedMont({ startDate, endDate })
+    console.log('onChangeDate', date)
+    setSelectedDate(date)
   }
 
   const { data, error, loading } = useQuery(
@@ -51,8 +48,11 @@ function Index({ navigation }) {
     `,
     {
       variables: {
-        startDate: selectedMont.startDate,
-        endDate: selectedMont.endDate
+        startDate: selectedMont[0],
+        endDate: selectedMont[1]
+      },
+      onCompleted: a => {
+        console.log(a)
       }
     }
   )
@@ -60,21 +60,20 @@ function Index({ navigation }) {
   return (
     <Page>
       <Calendar
-        today={today}
         data={data}
         loading={loading}
         selectedDate={selectedDate}
         onChangeDate={onChangeDate}
-        onMonthChange={onMonthChange}
-      />
-      <View flex={1} p={24} borderTopWidth={1} borderTopColor="dark5">
-        <List
-          selectedDate={selectedDate}
-          data={data}
-          error={error}
-          loading={loading}
-        />
-      </View>
+      >
+        <View flex={1} p={24} borderTopWidth={1} borderTopColor="dark5">
+          <List
+            selectedDate={selectedDate}
+            data={data}
+            error={error}
+            loading={loading}
+          />
+        </View>
+      </Calendar>
     </Page>
   )
 }

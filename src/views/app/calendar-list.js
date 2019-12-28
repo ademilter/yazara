@@ -1,6 +1,6 @@
 import React from 'react'
 import { CalendarList } from 'react-native-calendars'
-import { colors } from '../../utils/theme'
+import { colors, fontSize } from '../../utils/theme'
 import { LocaleConfig } from 'react-native-calendars'
 
 function Index({
@@ -55,15 +55,17 @@ const theme = {
   dotColor: colors.indigo,
   //-- day
   dayTextColor: colors.white6,
-  textDayFontWeight: 'normal',
-  //-- day selected markedDates (selected: true)
+  // textDayFontWeight: 'normal',
+  textDayFontSize: fontSize.normal,
+  //-- day selected markedDates
   selectedDayBackgroundColor: colors.white,
   selectedDotColor: colors.dark6,
   //-- day today
   todayBackgroundColor: colors.indigo,
   todayTextColor: colors.white6,
   //-- other day
-  textDisabledColor: colors.dark5
+  textDisabledColor: colors.dark5,
+  textDisabledFontSize: fontSize.normal
 }
 
 LocaleConfig.locales['custom'] = {

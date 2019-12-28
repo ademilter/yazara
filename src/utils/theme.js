@@ -41,6 +41,7 @@ export const fonts = {
 export const lineHeights = []
 
 export const fontSize = {
+  xSmall: 12,
   small: 14,
   normal: 16
 }
