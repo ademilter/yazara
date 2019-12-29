@@ -6,7 +6,7 @@ import {
 } from 'react-native-calendars'
 import { colors, fontSize } from '../../utils/theme'
 
-function Calendar({ data, loading, onChangeDate, children }) {
+function Calendar({ data, loading, selectedDate, onChangeDate, children }) {
   const markedDates = loading
     ? {}
     : data.logs.reduce((acc, curr) => {
@@ -16,6 +16,7 @@ function Calendar({ data, loading, onChangeDate, children }) {
 
   return (
     <CalendarProvider
+      date={selectedDate}
       onDateChanged={onChangeDate}
       // onMonthChange={date => {
       //   onChangeDate(date.dateString)
@@ -35,10 +36,18 @@ function Calendar({ data, loading, onChangeDate, children }) {
 }
 
 const theme = {
+  'stylesheet.expandable.main': {
+    knob: {
+      width: 30,
+      height: 4,
+      borderRadius: 4,
+      backgroundColor: colors.dark3
+    }
+  },
   calendarBackground: colors.dark6,
   // day names (header)
   textSectionTitleColor: colors.white,
-  textDayHeaderFontSize: fontSize.xSmall,
+  textDayHeaderFontSize: fontSize.small,
   textDayHeaderFontWeight: 'normal',
   // today
   todayBackgroundColor: colors.dark3,
