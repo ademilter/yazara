@@ -17,7 +17,7 @@ const Icon = props => (
 
 Icon.defaultProps = {
   fill: null,
-  color: 'white',
+  color: 'white6',
   size: '20',
   viewBox: '0 0 24 24',
   strokeWidth: 2

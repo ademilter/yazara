@@ -8,8 +8,8 @@ Button.defaultProps = {
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
-  borderRadius: 1,
-  bg: 'blue',
+  borderRadius: "normal",
+  bg: 'indigo',
   px: 24,
   height: 'finger'
 }

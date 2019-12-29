@@ -8,7 +8,6 @@ const Link = styled(TouchableOpacity)(
 )
 
 Link.defaultProps = {
-  fontWeight: 'bold',
   activeOpacity: 0.7
 }
 
