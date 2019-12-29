@@ -22,43 +22,33 @@ export const colors = {
   dark6: 'rgb(28, 28, 30)'
 }
 
-export const space = []
-
 export const size = {
-  finger: 46
+  finger: 46,
+  large: 60
 }
-
-export const sizes = {
-  finger: `${size.finger}px`
-}
-
-export const fonts = {
-  // light: 'Brown-Light',
-  // regular: 'Brown-Regular',
-  // bold: 'Brown-Bold'
-}
-
-export const lineHeights = []
 
 export const fontSize = {
-  xSmall: 12,
-  small: 14,
-  normal: 16
-}
-export const fontSizes = {
-  small: `${fontSize.small}px`,
-  normal: `${fontSize.normal}px`
+  small: 13,
+  normal: 17
 }
 
-export const radii = [0, 8]
+function addSuffix(value) {
+  return `${value}px`
+}
 
 export default {
-  space,
   colors,
-  sizes,
-  fonts,
-  fontSizes,
-  lineHeights,
-  radii,
-  textStyles: {}
+  sizes: {
+    finger: addSuffix(size.finger),
+    large: addSuffix(size.large)
+  },
+  fontSizes: {
+    small: addSuffix(fontSize.small),
+    normal: addSuffix(fontSize.normal)
+  },
+  radii: {
+    zero: 0,
+    normal: 8,
+    max: 999
+  }
 }

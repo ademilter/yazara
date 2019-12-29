@@ -3,7 +3,7 @@ import { colors } from './theme'
 export default {
   headerStyle: {
     backgroundColor: colors.dark6,
-    borderBottomColor: colors.dark5
+    borderBottomColor: colors.dark4
   },
   headerTintColor: colors.blue,
   headerTitleStyle: {
