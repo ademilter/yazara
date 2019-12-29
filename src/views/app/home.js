@@ -12,8 +12,9 @@ import List from './list'
 import View from '../../components/view'
 import Page from '../../components/page'
 import Text from '../../components/text'
-import Link from '../../components/link'
 import Icon from '../../components/icon'
+import Button from '../../components/button'
+import { colors } from '../../utils/theme'
 
 function Index({ navigation }) {
   const today = format(new Date(), 'yyyy-MM-dd')
@@ -65,7 +66,7 @@ function Index({ navigation }) {
         selectedDate={selectedDate}
         onChangeDate={onChangeDate}
       >
-        <View flex={1} p={24} borderTopWidth={1} borderTopColor="dark5">
+        <View flex={1} borderTopWidth={1} borderTopColor="dark4">
           <List
             selectedDate={selectedDate}
             data={data}
@@ -74,27 +75,42 @@ function Index({ navigation }) {
           />
         </View>
       </Calendar>
+      <View position="absolute" right={24} bottom={24}>
+        <Button
+          borderRadius="max"
+          px={0}
+          width="large"
+          height="large"
+          onPress={() => {}}
+        >
+          <Icon name="add" />
+        </Button>
+      </View>
     </Page>
   )
 }
 
 Index.navigationOptions = ({ navigation }) => {
   return {
-    headerLeft: () => (
-      <Link px={24} py={4} onPress={() => {}}>
-        <Icon name="search" />
-      </Link>
-    ),
+    headerStyle: {
+      backgroundColor: colors.dark6,
+      borderBottomColor: colors.dark6
+    },
+    // headerLeft: () => (
+    //   <Link px={24} py={4} onPress={() => {}}>
+    //     <Icon name="search" />
+    //   </Link>
+    // ),
     headerTitle: () => {
       const selectedDate = navigation.getParam('selectedDate', null)
       const title = format(new Date(selectedDate), 'MMMM yyyy')
-      return <Text>{title}</Text>
-    },
-    headerRight: () => (
-      <Link px={24} py={4} onPress={() => {}}>
-        <Icon name="add" />
-      </Link>
-    )
+      return <Text fontWeight="bold">{title}</Text>
+    }
+    // headerRight: () => (
+    //   <Link px={24} py={4} onPress={() => {}}>
+    //     <Icon name="add" />
+    //   </Link>
+    // )
   }
 }
 
