@@ -18,9 +18,6 @@ function Calendar({ data, loading, selectedDate, onChangeDate, children }) {
     <CalendarProvider
       date={selectedDate}
       onDateChanged={onChangeDate}
-      // onMonthChange={date => {
-      //   onChangeDate(date.dateString)
-      // }}
     >
       <ExpandableCalendar
         allowShadow={false}
