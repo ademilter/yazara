@@ -4,6 +4,8 @@ import { Provider } from 'mobx-react'
 import { ThemeProvider } from 'styled-components'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 
+console.disableYellowBox = true
+
 import theme from './utils/theme'
 import store from './store'
 
