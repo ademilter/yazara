@@ -21,9 +21,9 @@ Input.defaultProps = {
   bg: 'white6',
   px: 16,
   fontSize: 'normal',
-  borderRadius: "normal",
+  borderRadius: 'normal',
   autoCapitalize: 'none',
-  autoCorrect: false,
+  // autoCorrect: false,
   maxLength: 128
 }
 

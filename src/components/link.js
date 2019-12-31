@@ -7,8 +7,4 @@ const Link = styled(TouchableOpacity)(
   compose(space, color, flexbox, layout, border)
 )
 
-Link.defaultProps = {
-  activeOpacity: 0.7
-}
-
 export default Link

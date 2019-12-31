@@ -38,6 +38,7 @@ function addSuffix(value) {
 
 export default {
   colors,
+  space: [],
   sizes: {
     finger: addSuffix(size.finger),
     large: addSuffix(size.large)
@@ -48,7 +49,7 @@ export default {
   },
   radii: {
     zero: 0,
-    normal: 8,
+    normal: 6,
     max: 999
   }
 }

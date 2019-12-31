@@ -1,17 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import Link from './link'
+import Button from './button'
 
-const Button = styled(Link)({})
+const ButtonIcon = styled(Button)({})
 
-Button.defaultProps = {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: "normal",
-  bg: 'indigo',
-  px: 24,
-  height: 'finger'
+ButtonIcon.defaultProps = {
+  px: 0,
+  size: 'finger'
 }
 
-export default Button
+export default ButtonIcon
