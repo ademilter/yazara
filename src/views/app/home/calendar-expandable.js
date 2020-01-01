@@ -4,9 +4,15 @@ import {
   CalendarProvider,
   LocaleConfig
 } from 'react-native-calendars'
-import { colors, fontSize } from '../../utils/theme'
+import { colors, fontSize } from '../../../utils/theme'
 
-function Calendar({ data, loading, selectedDate, onChangeDate, children }) {
+function CalendarExpandable({
+  data,
+  loading,
+  selectedDate,
+  onChangeDate,
+  children
+}) {
   const markedDates = loading
     ? {}
     : data.logs.reduce((acc, curr) => {
@@ -15,10 +21,7 @@ function Calendar({ data, loading, selectedDate, onChangeDate, children }) {
       }, {})
 
   return (
-    <CalendarProvider
-      date={selectedDate}
-      onDateChanged={onChangeDate}
-    >
+    <CalendarProvider date={selectedDate} onDateChanged={onChangeDate}>
       <ExpandableCalendar
         allowShadow={false}
         style={{ marginTop: -40 }}
@@ -70,4 +73,4 @@ LocaleConfig.locales['custom'] = {
 }
 LocaleConfig.defaultLocale = 'custom'
 
-export default Calendar
+export default CalendarExpandable

@@ -1,10 +1,10 @@
 import React from 'react'
 import { SwipeListView } from 'react-native-swipe-list-view'
 
-import View from '../../components/view'
-import Text from '../../components/text'
-import Button from '../../components/button'
-import Icon from '../../components/icon'
+import View from '../../../components/view'
+import Text from '../../../components/text'
+import Button from '../../../components/button'
+import Icon from '../../../components/icon'
 
 function Item({ item }) {
   return (
@@ -20,7 +20,7 @@ function Item({ item }) {
   )
 }
 
-function List({ selectedDate, data, loading, error }) {
+function CalendarList({ selectedDate, data, loading, error }) {
   if (loading)
     return (
       <View p={24}>
@@ -64,4 +64,4 @@ function List({ selectedDate, data, loading, error }) {
   )
 }
 
-export default List
+export default CalendarList
